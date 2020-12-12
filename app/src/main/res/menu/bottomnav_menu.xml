@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+        android:icon="@drawable/icon_home"
+        android:id="@+id/homenav_menu"
+        android:checked="true"></item>
+    <item
+        android:title="Social"
+        android:id="@+id/socialnav_menu"
+        android:icon="@drawable/icon_social"
+        />
+
+    <item
+        android:title="Library"
+        android:id="@+id/libnav_menu"
+        android:icon="@drawable/icon_library"/>
+</menu>
