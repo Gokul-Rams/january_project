@@ -1,11 +1,3 @@
 <resources>
     <string name="app_name">Donation App</string>
-    <string name="submit">Submit</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="textview">Let\'s Register Your Details!!!</string>
-    <string name="name">Name</string>
-    <string name="logout">Logout</string>
-    <string name="logintittle">Login if your an existing user</string>
-    <string name="newUser">Don\'t have account?Create Account</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -23,24 +24,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView navview;
     Fragment fragtoadd = null;
     Toolbar toolbar;
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navview = findViewById(R.id.navigation_bottom);
-        navview.setOnNavigationItemSelectedListener(this);
+        auth = FirebaseAuth.getInstance();
 
-        fragmentcontainer = findViewById(R.id.frame_main_container);
+        if(auth.getCurrentUser()!=null) {
+            navview = findViewById(R.id.navigation_bottom);
+            navview.setOnNavigationItemSelectedListener(this);
 
-        toolbar = findViewById(R.id.toolbar_home);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Donate Food");
+            fragmentcontainer = findViewById(R.id.frame_main_container);
 
-        fragtoadd = new HomeFragment();
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        trans.replace(R.id.frame_main_container,fragtoadd);
-        trans.commit();
+            toolbar = findViewById(R.id.toolbar_home);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("Donate Food");
+
+
+            fragtoadd = new HomeFragment();
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.replace(R.id.frame_main_container, fragtoadd);
+            trans.commit();
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

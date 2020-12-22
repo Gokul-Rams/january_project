@@ -1,5 +1,6 @@
 package com.example.donationapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LibraryFragment extends Fragment {
 
     TextView tvusername,tvusertype;
     ImageView ivuserimage;
     ExtendedFloatingActionButton btnlogout,btneditprofile;
+    FirebaseAuth auth;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,10 +31,15 @@ public class LibraryFragment extends Fragment {
         btnlogout = view.findViewById(R.id.btnlogout_library_fragment);
         btneditprofile = view.findViewById(R.id.btnedit_profile_library_fragment);
 
+        auth = FirebaseAuth.getInstance();
+
         btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                auth.signOut();
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
             }
         });
 
