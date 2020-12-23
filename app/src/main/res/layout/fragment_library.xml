@@ -63,14 +63,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/btnedit_profile_library_fragment"
+                android:id="@+id/btnsetting_library_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="20dp"
-                app:icon="@drawable/icon_edit"
+                app:icon="@drawable/icon_setting"
                 android:backgroundTint="@color/buttoncolor"
-                android:text="Edit Profile"
+                android:text="Settings"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

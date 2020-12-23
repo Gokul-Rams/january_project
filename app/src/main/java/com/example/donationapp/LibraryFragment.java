@@ -19,7 +19,7 @@ public class LibraryFragment extends Fragment {
 
     TextView tvusername,tvusertype;
     ImageView ivuserimage;
-    ExtendedFloatingActionButton btnlogout,btneditprofile;
+    ExtendedFloatingActionButton btnlogout, btnsetting;
     FirebaseAuth auth;
     @Nullable
     @Override
@@ -29,9 +29,17 @@ public class LibraryFragment extends Fragment {
         tvusertype = view.findViewById(R.id.tvusertype_library_fragment);
         ivuserimage = view.findViewById(R.id.ivuserimage_library_fragment);
         btnlogout = view.findViewById(R.id.btnlogout_library_fragment);
-        btneditprofile = view.findViewById(R.id.btnedit_profile_library_fragment);
+        btnsetting = view.findViewById(R.id.btnsetting_library_fragment);
 
         auth = FirebaseAuth.getInstance();
+
+        tvusername.setText(ApplicationClass.currentuser.getName());
+        if(ApplicationClass.currentuser.getIsdonor()) {
+            tvusertype.setText("Donor");
+        }
+        else{
+            tvusertype.setText("Acceptor");
+        }
 
         btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,10 +51,11 @@ public class LibraryFragment extends Fragment {
             }
         });
 
-        btneditprofile.setOnClickListener(new View.OnClickListener() {
+        btnsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(),SettingActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 
