@@ -17,6 +17,7 @@ import com.example.donationapp.enhancers.CustomUntouchableLoading;
 import com.example.donationapp.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditdetailsActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class EditdetailsActivity extends AppCompatActivity {
     FirebaseFirestore db;
     CardView loadinganim;
     CustomUntouchableLoading anim;
+    ExtendedFloatingActionButton editacceptorbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class EditdetailsActivity extends AppCompatActivity {
         rbgrp = findViewById(R.id.rbgrp_editdetails_activity);
         etname = findViewById(R.id.etusername_editdetails_activity);
         etphno = findViewById(R.id.etphno_editdetails_activity);
+        editacceptorbtn = findViewById(R.id.btneditacceptor_editdetails_activity);
 
         loadinganim = findViewById(R.id.onscreenloading_editdetails_activity);
 
@@ -59,6 +62,12 @@ public class EditdetailsActivity extends AppCompatActivity {
         else{
             getSupportActionBar().setTitle("Edit User Details");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            etname.setText(ApplicationClass.currentuser.getName());
+            etphno.setText(ApplicationClass.currentuser.getPhno());
+            rbgrp.setVisibility(View.GONE);
+            editacceptorbtn.setVisibility(View.VISIBLE);
+            editacceptorbtn.setText("Edit Acceptor Details");
+            findViewById(R.id.tvmajorrole_editdetails_activity).setVisibility(View.GONE);
         }
     }
 
@@ -78,33 +87,51 @@ public class EditdetailsActivity extends AppCompatActivity {
             return;
         }
 
-        if(rbgrp.getCheckedRadioButtonId() == R.id.rbfooddonor_editdetails_activity) {
+        if(adddetailflag) {
+            if (rbgrp.getCheckedRadioButtonId() == R.id.rbfooddonor_editdetails_activity) {
+                anim.startanimation();
+                User temp = new User(getIntent().getStringExtra("uid"), name, phno, getIntent().getStringExtra("email"), true);
+                db.collection("userdetails").document(getIntent().getStringExtra("uid")).set(temp).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        anim.stopanimation();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditdetailsActivity.this, "Your details Sucessfull Added", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditdetailsActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(EditdetailsActivity.this, "Error"+task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else {
+                Intent intent = new Intent(this, EditAcceptorDetailsActivity.class);
+                intent.putExtra("addflag", adddetailflag);
+                intent.putExtra("uid", uid);
+                intent.putExtra("email", email);
+                intent.putExtra("name", name);
+                intent.putExtra("phno", phno);
+                intent.putExtra("isdonor", false);
+                startActivity(intent);
+            }
+        }
+        else {
             anim.startanimation();
-            User temp = new User(getIntent().getStringExtra("uid"), name, phno, getIntent().getStringExtra("email"),true);
-            db.collection("userdetails").document(getIntent().getStringExtra("uid")).set(temp).addOnCompleteListener(new OnCompleteListener<Void>() {
+            User temp = new User(ApplicationClass.currentuser.getUid(), name, phno,ApplicationClass.currentuser.getEmail(), ApplicationClass.currentuser.getIsdonor());
+            db.collection("userdetails").document(ApplicationClass.currentuser.getUid()).set(temp).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     anim.stopanimation();
-                    if (task.isSuccessful()) {
-                        Toast.makeText(EditdetailsActivity.this, "Your details Sucessfull Added", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditdetailsActivity.this,MainActivity.class);
-                        startActivity(intent);
+                    if(task.isSuccessful()){
+                        Toast.makeText(EditdetailsActivity.this, "Profile Sucessfully updated", Toast.LENGTH_SHORT).show();
                         finish();
-                    } else {
-                        Toast.makeText(EditdetailsActivity.this, "Internet trouble check your internet..", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(EditdetailsActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-        }
-        else{
-            Intent intent = new Intent(this,EditAcceptorDetailsActivity.class);
-            intent.putExtra("addflag", adddetailflag);
-            intent.putExtra("uid",uid);
-            intent.putExtra("email", email);
-            intent.putExtra("name",name);
-            intent.putExtra("phno",phno);
-            intent.putExtra("isdonor",false);
-            startActivity(intent);
         }
     }
 }

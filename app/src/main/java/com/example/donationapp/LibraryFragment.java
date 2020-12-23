@@ -27,7 +27,7 @@ public class LibraryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_library,container,false);
         tvusername = view.findViewById(R.id.tvusername_library_fragment);
         tvusertype = view.findViewById(R.id.tvusertype_library_fragment);
-        ivuserimage = view.findViewById(R.id.ivuserimage_library_fragment);
+        ivuserimage = view.findViewById(R.id.ivuserimage_fragment_library);
         btnlogout = view.findViewById(R.id.btnlogout_library_fragment);
         btnsetting = view.findViewById(R.id.btnsetting_library_fragment);
 

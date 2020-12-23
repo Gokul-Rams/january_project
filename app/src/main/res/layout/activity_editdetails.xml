@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/etusername_editdetails_activity" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvmajorrole_editdetails_activity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -105,7 +105,7 @@
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
+                app:layout_constraintTop_toBottomOf="@+id/tvmajorrole_editdetails_activity">
 
                 <RadioButton
                     android:id="@+id/rbfooddonor_editdetails_activity"
@@ -135,6 +135,22 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rbgrp_editdetails_activity" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btneditacceptor_editdetails_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/buttoncolor"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/btndone_editdetails_activity"
+                app:layout_constraintEnd_toStartOf="@+id/btndone_editdetails_activity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btndone_editdetails_activity"
+                tools:text="Edit Acceptor details" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
